@@ -39,6 +39,7 @@ function displayPage(pageId) {
     child.classList.add("hidden");
   }
   const targetPage = document.getElementById(pageId);
+
   if (targetPage) {
     targetPage.classList.remove("hidden");
   }
@@ -85,7 +86,7 @@ function TrendingNow() {
       
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${data.price}</p>
-        <button class="btn btn-sm btn-ghost">Details</button>
+        <button id="product-details" class="btn btn-sm btn-ghost" onclick="showDetails(${data.id})">Details</button>
         <button class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
@@ -98,14 +99,12 @@ function TrendingNow() {
 function loadProducts(category) {
   const productSection = document.getElementById("product-sections");
   productSection.innerHTML = "";
-  console.log(category);
   try {
     const url =
       category.toLowerCase() === "all"
         ? AllProducts()
         : ProductsByCategory(category);
     fetchData(url, (data) => {
-      console.log(data.length);
       data.forEach((product) => {
         productSection.insertAdjacentHTML(
           "beforeend",
@@ -131,7 +130,7 @@ function loadProducts(category) {
       
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${product.price}</p>
-        <button class="btn btn-sm btn-ghost">Details</button>
+        <button id="product-details" class="btn btn-sm btn-ghost" onclick="showDetails(${product.id})">Details</button>
         <button class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
@@ -159,7 +158,37 @@ function categoriesButton() {
     categoriesContainer.appendChild(btn);
   });
 }
+
+function showDetails(productId) {
+    const modal = document.getElementById('details_modal');
+    const content = document.getElementById('modal-content');
+    
+    fetchData(ProductDetails(productId), (data) => {
+    content.innerHTML = `
+      <div class="space-y-4">
+          <h3 class="text-2xl font-bold">${data.title}</h3>
+          <p class="text-gray-600">${data.description}</p>
+          <div class="flex items-center justify-between">
+            <p class="text-3xl font-bold">$${data.price}</p>
+            <div class="flex items-center">
+              <span class="text-orange-400 mr-2">★</span>
+              <span class="text-lg">${data.rating.rate} (${data.rating.count} reviews)</span>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-primary flex-1">Buy Now</button>
+            <button class="btn btn-secondary flex-1">Add to Cart</button>
+          </div>
+        </div>
+      
+    `;
+    });
+    
+    modal.showModal(); // মোডালটি দেখাবে
+}
+
 window.displayPage = displayPage;
+window.showDetails = showDetails;
 pagesButton();
 TrendingNow();
 categoriesButton();
