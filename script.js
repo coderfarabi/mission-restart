@@ -86,7 +86,7 @@ function TrendingNow() {
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${data.price}</p>
         <button class="btn btn-sm btn-ghost">Details</button>
-        <button class="btn btn-sm btn-primary">Add</button>
+        <button class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
   </div>
@@ -132,7 +132,7 @@ function loadProducts(category) {
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${product.price}</p>
         <button class="btn btn-sm btn-ghost">Details</button>
-        <button class="btn btn-sm btn-primary">Add</button>
+        <button class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
   </div>
