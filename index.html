@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="font-sans">
+  <!-- nav section -->
+  <nav class="navbar bg-base-100 max-w-screen-xl mx-auto shadow-sm px-4 md:px-10">
+    <div class="navbar-start">
+      <div class="dropdown">
+        <div tabindex="0" role="button" class="btn btn-ghost md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </div>
+        <ul tabindex="0"
+          class="nav-pages menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        </ul>
+      </div>
+      <a class="btn btn-ghost text-xl font-bold text-primary">SwiftCart</a>
+    </div>
+
+    <div class="navbar-center hidden md:flex">
+      <ul class="nav-pages menu menu-horizontal px-1 font-medium">
+      </ul>
+    </div>
+
+    <div class="navbar-end">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+          <div class="indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="badge badge-sm indicator-item badge-primary">8</span>
+          </div>
+        </div>
+        <div tabindex="0"
+          class="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow border border-gray-100">
+          <div class="card-body">
+            <span class="text-lg font-bold">8 Items</span>
+            <span class="text-info font-semibold">Subtotal: $999</span>
+            <div class="card-actions">
+              <button class="btn btn-primary btn-sm btn-block">View cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- main section -->
+  <main id="content-area" class="max-w-screen-xl mx-auto">
+    <div id="home">
+      <section class="hero max-h-fit " style="background-image: url(Assets/banner-image.png);">
+        <div class="hero-overlay "></div>
+        <div class="hero-content text-neutral-content py-10">
+          <div class="max-w-md">
+            <p class="mb-5 text-2xl font-bold">Best Collection For You</p>
+            <p class="mb-5">
+              Discover the latest trends in fashion, electronics, and more-Shop with
+              confidence and style at SwiftCart.
+            </p>
+            <button class="btn btn-primary">Shop Now</button>
+          </div>
+        </div>
+      </section>
+      <!-- services section -->
+      <section class="py-10 bg-gray-100">
+        <h2 class="text-center font-bold text-3xl mb-4">
+          Why Choose Us
+        </h2>
+        <p class="text-center text-gray-600 font-semibold mb-10">We provide the best shopping experience with top-notch
+          services.</p>
+        <div class=" px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Fast Delivery</h2>
+              <p>Get your orders delivered to your doorstep quickly and efficiently.</p>
+            </div>
+          </div>
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">24/7 Support</h2>
+              <p>Our support team is available around the clock to assist you.</p>
+            </div>
+          </div>
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Secure Payment</h2>
+              <p>Experience safe and secure transactions with our encrypted payment systems.</p>
+            </div>
+          </div>
+          <div class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">Easy Returns</h2>
+              <p>Not satisfied? Return your products easily within 30 days.</p>
+            </div>
+          </div>
+        </div class="my-10 px-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      </section>
+
+      <section class="p-10">
+        <h2 class="text-left font-bold text-3xl mb-10">Trending Now</h2>
+        <div id="TrendingNow" class="grid grid-cols-1 sm:grid-cols-3 gap-6 p-4 justify-items-center">
+        </div>
+      </section>
+    </div>
+    <div id="products" class="text-center space-y-5 py-5">
+      <p class="text-4xl font-bold">Our Products</p>
+      <div id="categories" class="flex flex-wrap justify-center gap-3 p-4">
+      </div>
+      <div id="product-sections" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
+      </div>
+    </div>
+  </main>
+  <!-- footer section -->
+  <footer class="bg-[#1f2937] text-gray-400 p-10 ">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <h2 class="text-[#6366f1] text-2xl font-bold mb-4">SwiftCart</h2>
+        <p class="text-sm leading-relaxed max-w-xs">
+          Your one-stop shop for all your fashion and lifestyle needs. Quality products, fast delivery, and excellent
+          support.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-white font-semibold uppercase text-xs tracking-widest mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white transition">Home</a></li>
+          <li><a href="#" class="hover:text-white transition">Products</a></li>
+          <li><a href="#" class="hover:text-white transition">About</a></li>
+          <li><a href="#" class="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-semibold uppercase text-xs tracking-widest mb-4">Support</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+          <li><a href="#" class="hover:text-white transition">Shipping</a></li>
+          <li><a href="#" class="hover:text-white transition">Returns</a></li>
+          <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-white font-semibold uppercase text-xs tracking-widest mb-4">Subscribe to our newsletter</h3>
+        <p class="text-sm mb-4">The latest news, articles, and resources, sent to your inbox weekly.</p>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="email" placeholder="Enter your email"
+            class="input input-bordered bg-white text-gray-800 w-full sm:max-w-[200px]" />
+          <button class="btn border-none bg-[#6366f1] hover:bg-[#4f46e5] text-white">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider before:bg-gray-700 after:bg-gray-700 my-8"></div>
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-sm">© 2025 SwiftCart, Inc. All rights reserved.</p>
+      <div class="flex gap-6 text-xl">
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" class="hover:text-white transition"><i class="fa-regular fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
