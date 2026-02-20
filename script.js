@@ -19,6 +19,10 @@ const categories = [
   "Women's Clothing",
 ];
 
+let cartItem = [];
+let totalCount = 0;
+let totalPrice = 0;
+
 function fetchData(url, callback) {
   fetch(url).then((res) => res.json().then((data) => callback(data)));
 }
@@ -87,7 +91,7 @@ function TrendingNow() {
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${data.price}</p>
         <button id="product-details" class="btn btn-sm btn-ghost" onclick="showDetails(${data.id})">Details</button>
-        <button class="btn btn-sm btn-primary">Add to card</button>
+        <button onclick="addToCart(${data.id}, ${data.price})" class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
   </div>
@@ -131,7 +135,7 @@ function loadProducts(category) {
       <div class="card-actions justify-end mt-4">
         <p class="text-xl text-start font-bold">$${product.price}</p>
         <button id="product-details" class="btn btn-sm btn-ghost" onclick="showDetails(${product.id})">Details</button>
-        <button class="btn btn-sm btn-primary">Add to card</button>
+        <button onclick="addToCart(${product.id},${product.price})" class="btn btn-sm btn-primary">Add to card</button>
       </div>
     </div>
   </div>
@@ -160,10 +164,10 @@ function categoriesButton() {
 }
 
 function showDetails(productId) {
-    const modal = document.getElementById('details_modal');
-    const content = document.getElementById('modal-content');
-    
-    fetchData(ProductDetails(productId), (data) => {
+  const modal = document.getElementById("details_modal");
+  const content = document.getElementById("modal-content");
+
+  fetchData(ProductDetails(productId), (data) => {
     content.innerHTML = `
       <div class="space-y-4">
           <h3 class="text-2xl font-bold">${data.title}</h3>
@@ -182,13 +186,88 @@ function showDetails(productId) {
         </div>
       
     `;
+  });
+
+  modal.showModal(); // মোডালটি দেখাবে
+}
+function updateCartUI(item) {
+  const cartContainer = document.getElementById("sidebar-content");
+  fetchData(ProductDetails(item.id), (data) => {
+    const price = item.eachPrice * item.count;
+    cartContainer.insertAdjacentHTML(
+      "beforeend",
+      `
+          <div class="flex items-center gap-4 mb-4">
+            <img src="${data.image}" alt="${data.title}" class="w-16 h-16 object-contain">
+            <div>
+              <h4 class="text-sm font-bold">${data.title}</h4>
+              <p class="text-sm">Quantity: <span id="quantity-${data.id}">${item.count}</span></p>
+              <div>
+              <p class="text-sm font-bold">$<span id="price-${data.id}">${price.toFixed(2)}</span></p> 
+              <button onclick="removeFromCart(${data.id})" class="btn btn-xs btn-error mt-1">Remove</button>
+              </div>
+            </div>
+          </div>
+        `,
+    );
+  });
+}
+function addToCart(productId, eachPrice) {
+  const existingItem = cartItem.find((item) => item.id === productId);
+  const cartCountElement = document.querySelectorAll(".cart-count");
+  const totalPriceElement = document.getElementById("total-price");
+  if (existingItem) {
+    existingItem.count += 1;
+    totalCount += 1;
+    totalPrice += eachPrice;
+    const priceElement = document.getElementById(`price-${productId}`);
+    const quantityElement = document.getElementById(`quantity-${productId}`);
+    fetchData(ProductDetails(productId), (data) => {
+      const price = data.price * existingItem.count;
+      existingItem.price = price;
+      if (priceElement) {
+        priceElement.innerText = price.toFixed(2);
+      }
+      if (quantityElement)
+        quantityElement.innerText = existingItem.count.toString();
     });
-    
-    modal.showModal(); // মোডালটি দেখাবে
+  } else {
+    cartItem.push({
+      id: productId,
+      count: 1,
+      eachPrice: eachPrice,
+      price: eachPrice,
+    });
+    totalCount += 1;
+    totalPrice += eachPrice;
+    updateCartUI(cartItem.at(-1));
+  }
+  cartCountElement.forEach((el) => (el.innerText = totalCount));
+  totalPriceElement.innerText = totalPrice.toFixed(2);
+}
+
+function removeFromCart(productId) {
+  const itemIndex = cartItem.findIndex((item) => item.id === productId);
+  if (itemIndex !== -1) {
+    const item = cartItem[itemIndex];
+    totalCount -= item.count;
+    totalPrice -= item.price;
+    cartItem.splice(itemIndex, 1);
+    const cartContainer = document.getElementById("sidebar-content");
+    const itemElement = document.getElementById(`quantity-${productId}`)
+      .parentElement.parentElement.parentElement;
+    cartContainer.removeChild(itemElement);
+    const cartCountElement = document.querySelectorAll(".cart-count");
+    cartCountElement.forEach((el) => (el.innerText = totalCount));
+    const totalPriceElement = document.getElementById("total-price");
+    totalPriceElement.innerText = totalPrice.toFixed(2);
+  }
 }
 
 window.displayPage = displayPage;
 window.showDetails = showDetails;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
 pagesButton();
 TrendingNow();
 categoriesButton();
